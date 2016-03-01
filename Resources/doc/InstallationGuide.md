@@ -24,8 +24,13 @@ Install the bundle by executing the following line command. This command updates
 ```bash
 $ php app/console pumukit:install:bundle Pumukit/Cmar/WebTVBundle/PumukitCmarWebTVBundle
 ```
+### Step 3: Init CMAR tags
 
-### Step 3: Update assets
+```bash
+$ php app/console webtv:init:tags --force
+```
+
+### Step 4: Update assets
 
 ```bash
 $ php app/console cache:clear
