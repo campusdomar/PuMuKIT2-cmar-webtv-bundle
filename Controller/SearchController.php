@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Pumukit\WebTVBundle\Controller\SearchController as Base;
+use Pumukit\Legacy\WebTVBundle\Controller\SearchController as Base;
 
 class SearchController extends Base
 {

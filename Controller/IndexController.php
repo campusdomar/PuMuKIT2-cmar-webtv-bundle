@@ -2,7 +2,7 @@
 
 namespace Pumukit\Cmar\WebTVBundle\Controller;
 
-use Pumukit\WebTVBundle\Controller\IndexController as Base;
+use Pumukit\Legacy\WebTVBundle\Controller\IndexController as Base;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
