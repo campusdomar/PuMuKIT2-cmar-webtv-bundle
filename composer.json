@@ -1,5 +1,5 @@
 {
-    "name": "teltek/pmk2-cmar-webtv-bundle",
+    "name": "campusdomar/pmk2-cmar-webtv-bundle",
     "type": "symfony-bundle",
     "description": "CMAR WebTVBundle.",
     "keywords": [
@@ -7,7 +7,8 @@
         "symfony2",
         "bundle",
         "pumukit",
-        "teltek"
+        "teltek",
+        "campusdomar"
     ],
     "homepage": "https://github.com/campusdomar/PuMuKIT2-cmar-webtv-bundle.git",
     "license": "Copyright",
