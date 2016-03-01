@@ -1,6 +1,8 @@
 # Change Log
 
 ## [Unreleased]
+### Added
+- Added CHANGELOG.md file
 ### Changed
 - Changed namespaces to make bundle compatible with PuMuKIT 2.2.*
 
