@@ -3,9 +3,6 @@ pumukit_web_tv:
     type:     annotation
     prefix:   /
 
-homepage:
-    pattern: /
-
 pumukit_cmar_web_tv_opencast_css:
     pattern: /opencast.css
     methods: [GET]
