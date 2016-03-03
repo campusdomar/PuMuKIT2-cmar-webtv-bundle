@@ -1,3 +1,11 @@
+pumukit_web_tv:
+    resource: "@PumukitWebTVBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+homepage:
+    pattern: /
+
 pumukit_cmar_web_tv_opencast_css:
     pattern: /opencast.css
     methods: [GET]
@@ -27,3 +35,6 @@ pumukit_cmar_web_tv_style_css:
         maxAge:       86400
         sharedAge:    86400
         _format: css
+
+homepage:
+    pattern: /
