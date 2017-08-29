@@ -12,7 +12,7 @@
     <tr>
      <td valign="top" width="1%">
        <div style="position:relative; overflow:hidden" class="pic_mm">
-         <a href="{{ url('pumukit_webtv_multimediaobject_index', {'id': mm.id}) }}" class="serial_mm_pics" > 
+         <a href="{{ url('pumukit_webtv_multimediaobject_index', {'id': mm.id}) }}" class="serial_mm_pics" >
                <img class="play_icon_shadow" alt="" width="30" src="/bundles/pumukitwebtv/images/webtv/sombra.png">
                <img class="play_icon" alt="" width="15" src="/bundles/pumukitwebtv/images/webtv/play.png">
                {% for pic in mm.getPics() if pic.getUrl() is not empty %}<img src="{{ pic.getUrl() }}" class="serial"></br>{% else %}<img src="/bundles/pumukitwebtv/images/no_pic.jpg" class="serial">{% endfor %}
@@ -26,7 +26,7 @@
          <div class="title">"{{ mm.getTitle() }}"</div>
          {% endif %}
          {% if mm.getSubtitle() is not empty %}
-         <div class="subtitle">{{ mm.getSubtitle() }}</div>	
+         <div class="subtitle">{{ mm.getSubtitle() }}</div>
          {% endif %}
          <div class="objects">
            <!-- MATTERHORN -->
@@ -34,13 +34,13 @@
            <div id="material" class="file matterhorn">
              <a href="{{ url('pumukit_webtv_multimediaobject_index', {'id': mm.id}) }}">{% spaceless %}
                {% trans %}Video{% endtrans %}
-               {% if (mm.getBroadcast().getBroadcastTypeId() != public_broadcast()) %}
+               {% if not mm.isPublicEmbeddedBroadcast() %}
                {% trans %}private{% endtrans %}
                {% endif %}
              {% endspaceless %}</a>
              &nbsp;|&nbsp;&nbsp;<span class="language">{{ (mm.getProperty('opencastlanguage')?(mm.getProperty('opencastlanguage')|lower):'en')|language_name }}</span>
              &nbsp;|&nbsp; {{ mm.getDuration()|duration_minutes_seconds }}
-	         &nbsp;|&nbsp; {% trans %}Viewed{% endtrans %}: <span class="numView">{{ mm.getNumview() }}</span>
+             &nbsp;|&nbsp; {% trans %}Viewed{% endtrans %}: <span class="numView">{{ mm.getNumview() }}</span>
              {% if (mm.getNumview() == 1) %}{% trans %}time{% endtrans %}{% else %}{% trans %}times{% endtrans %}{% endif %}
            </div>
            {% else %}
@@ -80,14 +80,14 @@
               <a target="_blank" href="{{ link.getUrl() }}">{{ link.getName() }}</a>
             </div>
           {% endfor %}
-        </div>        
+        </div>
         <!-- PERSONS ACT -->
         <div class="persons" style="overflow: hidden; padding-top: 6px;">
         {% for role in mm.getRoles() if role.getDisplay() %}
           {% for person in mm.getPeopleByRole(role) %}
             <div>
               <div class="person">
-	            {{ role.getText() }}
+                {{ role.getText() }}
                 {% if person.getWeb() is not empty %}
                   <a href="{{ person.getWeb() }}">{{ person.getHName() }}</a>
                 {% else %}

@@ -3,7 +3,7 @@
 namespace Pumukit\Cmar\WebTVBundle\Twig;
 
 use Symfony\Component\Intl\Intl;
-use Pumukit\SchemaBundle\Document\Broadcast;
+use Pumukit\SchemaBundle\Document\EmbeddedBroadcast;
 use Pumukit\SchemaBundle\Document\Tag;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Pumukit\NewAdminBundle\Form\Type\Base\CustomLanguageType;
@@ -25,7 +25,7 @@ class CmarWebTVExtension extends \Twig_Extension
         $this->languages = Intl::getLanguageBundle()->getLanguageNames();
         $this->translator = $translator;
     }
-  
+
     /**
      * Get name
      */
@@ -84,12 +84,16 @@ class CmarWebTVExtension extends \Twig_Extension
     {
         $url = str_replace('%id%', $multimediaObject->getProperty('opencast'), $multimediaObject->getProperty('opencasturl'));
 
-        $broadcast_type = $multimediaObject->getBroadcast()->getBroadcastTypeId();
-        if (Broadcast::BROADCAST_TYPE_PUB == $broadcast_type) {
+
+        $embeddedBroadcast = $multimediaObject->getEmbeddedBroadcast();
+        if (!$embeddedBroadcast) {
+            $url_player = '/cmarwatch.html';
+        } elseif (EmbeddedBroadcast::TYPE_PUBLIC == $embeddedBroadcast->getType()) {
             $url_player = '/cmarwatch.html';
         } else {
             $url_player = '/securitywatch.html';
         }
+
         $url = str_replace('/watch.html', $url_player, $url);
 
         if ($isHTML5) {

@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Pumukit\Legacy\WebTVBundle\Controller\MultimediaObjectController as Base;
 use Pumukit\SchemaBundle\Document\MultimediaObject;
-use Pumukit\SchemaBundle\Document\Broadcast;
 
 class MultimediaObjectController extends Base
 {
@@ -119,10 +118,8 @@ class MultimediaObjectController extends Base
 
    public function testBroadcast(MultimediaObject $multimediaObject, Request $request)
    {
-      if (($broadcast = $multimediaObject->getBroadcast()) && 
-          (Broadcast::BROADCAST_TYPE_PUB !== $broadcast->getBroadcastTypeId())) {
-
-          if ((!$this->container->hasParameter('pumukit_cmar_web_tv.cas_url')) && 
+       if (!$multimediaObject->isPublicEmbeddedBroadcast()) {
+          if ((!$this->container->hasParameter('pumukit_cmar_web_tv.cas_url')) &&
               (!$this->container->hasParameter('pumukit_cmar_web_tv.cas_port')) &&
               (!$this->container->hasParameter('pumukit_cmar_web_tv.cas_uri')) &&
               (!$this->container->hasParameter('pumukit_cmar_web_tv.cas_allowed_ip_clients'))) {
@@ -136,8 +133,6 @@ class MultimediaObjectController extends Base
               return new Response($this->renderView("PumukitWebTVBundle:Index:401unauthorized.html.twig", array()), 401);
           }
       }
-      if ($broadcast && (Broadcast::BROADCAST_TYPE_PRI === $broadcast->getBroadcastTypeId()))
-        return new Response($this->renderView("PumukitWebTVBundle:Index:403forbidden.html.twig", array()), 403);
 
       return true;
     }
