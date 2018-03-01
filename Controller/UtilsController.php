@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\JsonResponse;
 
 /**
  * @Route("/utils")
@@ -16,7 +15,7 @@ class UtilsController extends Controller
     /**
      * @Template()
      */
-    public function userAction(Request $request, $opencast=false)
+    public function userAction(Request $request, $opencast = false)
     {
         $casService = $this->get('pumukit_cmar_web_tv.casservice');
         $casIsAuthenticated = $casService->isAuthenticated();
@@ -30,7 +29,7 @@ class UtilsController extends Controller
             return $this->render('PumukitCmarWebTVBundle:Utils:opencast_user.html.twig',
                                  array(
                                        'cas_is_authenticated' => $casIsAuthenticated,
-                                       'cas_username' => $username
+                                       'cas_username' => $username,
                                        )
                                  )
               ;
@@ -38,7 +37,7 @@ class UtilsController extends Controller
 
         return array(
                      'cas_is_authenticated' => $casIsAuthenticated,
-                     'cas_username' => $username
+                     'cas_username' => $username,
                      );
     }
 
@@ -48,11 +47,11 @@ class UtilsController extends Controller
     public function loginAction(Request $request)
     {
         $casService = $this->get('pumukit_cmar_web_tv.casservice');
-        $url = $request->server->get("HTTP_REFERER");
+        $url = $request->server->get('HTTP_REFERER');
         $casService->setFixedServiceURL($url);
         $casService->forceAuthentication();
-        if(!in_array($casService->getUser(), array("tv", "prueba", "adminmh", "admin", "sistemas.uvigo"))) {
-            throw $this->createAccessDeniedException('Unable to access this page!');        
+        if (!in_array($casService->getUser(), array('tv', 'prueba', 'adminmh', 'admin', 'sistemas.uvigo'))) {
+            throw $this->createAccessDeniedException('Unable to access this page!');
         }
 
         return $this->redirect($url);

@@ -17,7 +17,7 @@ class CmarWebTVExtension extends \Twig_Extension
     private $multimediaObjectNumInSeriesCache = array();
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct(DocumentManager $documentManager, TranslatorInterface $translator)
     {
@@ -27,7 +27,7 @@ class CmarWebTVExtension extends \Twig_Extension
     }
 
     /**
-     * Get name
+     * Get name.
      */
     public function getName()
     {
@@ -35,7 +35,7 @@ class CmarWebTVExtension extends \Twig_Extension
     }
 
     /**
-     * Get filters
+     * Get filters.
      */
     public function getFilters()
     {
@@ -46,20 +46,21 @@ class CmarWebTVExtension extends \Twig_Extension
     }
 
     /**
-     * Get functions
+     * Get functions.
      */
-    function getFunctions()
+    public function getFunctions()
     {
-      return array(
+        return array(
                    new \Twig_SimpleFunction('iframeurl', array($this, 'getIframeUrl')),
                    new \Twig_SimpleFunction('precinct_complete_name', array($this, 'getPrecinctCompleteName')),
                    );
     }
 
     /**
-     * Get language name
+     * Get language name.
      *
      * @param string $code
+     *
      * @return string
      */
     public function getLanguageName($code)
@@ -76,14 +77,13 @@ class CmarWebTVExtension extends \Twig_Extension
     }
 
     /**
-     * Get Iframe URL
+     * Get Iframe URL.
      *
      * @return string
      */
-    public function getIframeUrl($multimediaObject, $isHTML5=false, $isDownloadable=false)
+    public function getIframeUrl($multimediaObject, $isHTML5 = false, $isDownloadable = false)
     {
         $url = str_replace('%id%', $multimediaObject->getProperty('opencast'), $multimediaObject->getProperty('opencasturl'));
-
 
         $embeddedBroadcast = $multimediaObject->getEmbeddedBroadcast();
         if (!$embeddedBroadcast) {
@@ -101,38 +101,41 @@ class CmarWebTVExtension extends \Twig_Extension
         }
 
         if ($isDownloadable) {
-          $url = $url . "&videomode=progressive";
+            $url = $url.'&videomode=progressive';
         }
 
         $invert = $multimediaObject->getProperty('opencastinvert');
         if ($invert && $isHTML5) {
-            $url = $url . "&display=invert";
+            $url = $url.'&display=invert';
         }
 
         return $url;
     }
 
     /**
-     * Count Multimedia Objects
+     * Count Multimedia Objects.
      *
      * @param Series $series
-     * @return integer
+     *
+     * @return int
      */
     public function countMultimediaObjects($series)
     {
-        if (array_key_exists($series->getId(), $this->multimediaObjectNumInSeriesCache)){
+        if (array_key_exists($series->getId(), $this->multimediaObjectNumInSeriesCache)) {
             return $this->multimediaObjectNumInSeriesCache[$series->getId()];
         }
         $num = $this->dm->getRepository('PumukitSchemaBundle:MultimediaObject')->countInSeries($series);
         $this->multimediaObjectNumInSeriesCache[$series->getId()] = $num;
+
         return $num;
     }
 
     /**
-     * Get precinct complete name
+     * Get precinct complete name.
      *
      * @param Tag|EmbeddedTag $precinctTag
-     * @param string $locale
+     * @param string          $locale
+     *
      * @return string
      */
     public function getPrecinctCompleteName($precinctTag, $locale)
@@ -143,14 +146,15 @@ class CmarWebTVExtension extends \Twig_Extension
         $placeTag = $precinctTag->getParent();
         $address = '';
         if (null != $placeTag) {
-            $i18nAddress = $placeTag->getProperty("address");
+            $i18nAddress = $placeTag->getProperty('address');
             if (null != $i18nAddress && (!empty(array_filter($i18nAddress)))) {
                 if (isset($i18nAddress[$locale])) {
-                    $address = (null == $i18nAddress[$locale])?'':' - '.$i18nAddress[$locale];
+                    $address = (null == $i18nAddress[$locale]) ? '' : ' - '.$i18nAddress[$locale];
                 }
             }
         }
-        $precinct = ($precinctTag->getTitle() == '')?'':$precinctTag->getTitle().', ';
-        return $precinct . $placeTag->getTitle().$address;
+        $precinct = ('' == $precinctTag->getTitle()) ? '' : $precinctTag->getTitle().', ';
+
+        return $precinct.$placeTag->getTitle().$address;
     }
 }

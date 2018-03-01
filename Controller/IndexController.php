@@ -19,6 +19,7 @@ class IndexController extends Base
         $event = $eventRepo->findOneByHoursEvent(3);
 
         $this->get('pumukit_web_tv.breadcrumbs')->reset();
+
         return array('event' => $event);
     }
 }

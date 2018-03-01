@@ -6,8 +6,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class PumukitCmarWebTVBundle extends Bundle
 {
-  public function getParent()
-  {
-    return 'PumukitWebTVBundle';
-  }
+    public function getParent()
+    {
+        return 'PumukitWebTVBundle';
+    }
 }

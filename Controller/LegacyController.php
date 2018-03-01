@@ -3,10 +3,7 @@
 namespace Pumukit\Cmar\WebTVBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 use Pumukit\SchemaBundle\Document\Series;
 use Pumukit\SchemaBundle\Document\MultimediaObject;
 
@@ -18,18 +15,18 @@ class LegacyController extends Controller
      */
     public function seriesAction($pumukit1id)
     {
-        $dm = $this->get("doctrine_mongodb.odm.document_manager");
-        $seriesRepo = $dm->getRepository("PumukitSchemaBundle:Series");
+        $dm = $this->get('doctrine_mongodb.odm.document_manager');
+        $seriesRepo = $dm->getRepository('PumukitSchemaBundle:Series');
 
         $series = $seriesRepo->createQueryBuilder()
-          ->field("properties.pumukit1id")->equals($pumukit1id)
+          ->field('properties.pumukit1id')->equals($pumukit1id)
           ->getQuery()->getSingleResult();
 
         if (!$series) {
             throw $this->createNotFoundException();
         }
 
-        return $this->redirect($this->generateUrl("pumukit_webtv_series_index", array("id" => $series->getId())));
+        return $this->redirect($this->generateUrl('pumukit_webtv_series_index', array('id' => $series->getId())));
     }
 
     /**
@@ -40,41 +37,39 @@ class LegacyController extends Controller
      */
     public function multimediaObjectAction($pumukit1id)
     {
-        $dm = $this->get("doctrine_mongodb.odm.document_manager");
-        $mmobjRepo = $dm->getRepository("PumukitSchemaBundle:MultimediaObject");
+        $dm = $this->get('doctrine_mongodb.odm.document_manager');
+        $mmobjRepo = $dm->getRepository('PumukitSchemaBundle:MultimediaObject');
 
         $multimediaObject = $mmobjRepo->createQueryBuilder()
-          ->field("properties.pumukit1id")->equals($pumukit1id)
+          ->field('properties.pumukit1id')->equals($pumukit1id)
           ->getQuery()->getSingleResult();
 
         if (!$multimediaObject) {
             throw $this->createNotFoundException();
         }
 
-        return $this->redirect($this->generateUrl("pumukit_webtv_multimediaobject_index", array("id" => $multimediaObject->getId())));
+        return $this->redirect($this->generateUrl('pumukit_webtv_multimediaobject_index', array('id' => $multimediaObject->getId())));
     }
 
-    
     /**
      * @Route("/pumoodle/embed/m/{pumukit1id}")
      * @Route("/mmobj/iframe/id/{pumukit1id}")
      */
     public function multimediaObjectIframeAction($pumukit1id)
     {
-        $dm = $this->get("doctrine_mongodb.odm.document_manager");
-        $mmobjRepo = $dm->getRepository("PumukitSchemaBundle:MultimediaObject");
+        $dm = $this->get('doctrine_mongodb.odm.document_manager');
+        $mmobjRepo = $dm->getRepository('PumukitSchemaBundle:MultimediaObject');
 
         $multimediaObject = $mmobjRepo->createQueryBuilder()
-          ->field("properties.pumukit1id")->equals($pumukit1id)
+          ->field('properties.pumukit1id')->equals($pumukit1id)
           ->getQuery()->getSingleResult();
 
         if (!$multimediaObject) {
             throw $this->createNotFoundException();
         }
 
-        return $this->redirect($this->generateUrl("pumukit_webtv_multimediaobject_iframe", array("id" => $multimediaObject->getId())));
+        return $this->redirect($this->generateUrl('pumukit_webtv_multimediaobject_iframe', array('id' => $multimediaObject->getId())));
     }
-    
 
     /**
      * @Route("/mmobj/index/file_id/{pumukit1id}")
@@ -82,18 +77,18 @@ class LegacyController extends Controller
      */
     public function trackAction($pumukit1id)
     {
-        $dm = $this->get("doctrine_mongodb.odm.document_manager");
-        $mmobjRepo = $dm->getRepository("PumukitSchemaBundle:MultimediaObject");
+        $dm = $this->get('doctrine_mongodb.odm.document_manager');
+        $mmobjRepo = $dm->getRepository('PumukitSchemaBundle:MultimediaObject');
 
         $multimediaObject = $mmobjRepo->createQueryBuilder()
-          ->field("tracks.tags")->equals(new \MongoRegex("/\bpumukit1id:".$pumukit1id."\b/i"))
+          ->field('tracks.tags')->equals(new \MongoRegex("/\bpumukit1id:".$pumukit1id."\b/i"))
           ->getQuery()->getSingleResult();
 
         if (!$multimediaObject) {
             throw $this->createNotFoundException();
         }
 
-        return $this->redirect($this->generateUrl("pumukit_webtv_multimediaobject_index", array("id" => $multimediaObject->getId())));
+        return $this->redirect($this->generateUrl('pumukit_webtv_multimediaobject_index', array('id' => $multimediaObject->getId())));
     }
 
     /**
@@ -101,8 +96,8 @@ class LegacyController extends Controller
      */
     public function magicAction($hash)
     {
-        $dm = $this->get("doctrine_mongodb.odm.document_manager");
-        $seriesRepo = $dm->getRepository("PumukitSchemaBundle:Series");
+        $dm = $this->get('doctrine_mongodb.odm.document_manager');
+        $seriesRepo = $dm->getRepository('PumukitSchemaBundle:Series');
 
         $series = $seriesRepo->createQueryBuilder()
           ->field('properties.pumukit1magic')->equals($hash)
@@ -120,10 +115,11 @@ class LegacyController extends Controller
      */
     public function podcastVideoAction()
     {
-        if (!array_key_exists("PumukitPodcastBundle", $this->container->getParameter('kernel.bundles'))) {
+        if (!array_key_exists('PumukitPodcastBundle', $this->container->getParameter('kernel.bundles'))) {
             throw $this->createNotFoundException();
         }
-        return $this->redirect($this->generateUrl("pumukit_podcast_video", array()));
+
+        return $this->redirect($this->generateUrl('pumukit_podcast_video', array()));
     }
 
     /**
@@ -131,10 +127,11 @@ class LegacyController extends Controller
      */
     public function podcastAudioAction()
     {
-        if (!array_key_exists("PumukitPodcastBundle", $this->container->getParameter('kernel.bundles'))) {
+        if (!array_key_exists('PumukitPodcastBundle', $this->container->getParameter('kernel.bundles'))) {
             throw $this->createNotFoundException();
         }
-        return $this->redirect($this->generateUrl("pumukit_podcast_audio", array()));
+
+        return $this->redirect($this->generateUrl('pumukit_podcast_audio', array()));
     }
 
     /**
@@ -142,6 +139,6 @@ class LegacyController extends Controller
      */
     public function directoAction()
     {
-        return $this->redirect($this->generateUrl("pumukit_live", array()));
+        return $this->redirect($this->generateUrl('pumukit_live', array()));
     }
 }

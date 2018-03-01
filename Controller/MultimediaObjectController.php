@@ -13,7 +13,7 @@ class MultimediaObjectController extends Base
 {
     public function preExecute(MultimediaObject $multimediaObject, Request $request)
     {
-        if ($opencasturl = $multimediaObject->getProperty("opencasturl")) {
+        if ($opencasturl = $multimediaObject->getProperty('opencasturl')) {
             $this->updateBreadcrumbs($multimediaObject);
             $this->incNumView($multimediaObject);
             $this->dispatch($multimediaObject);
@@ -22,25 +22,25 @@ class MultimediaObjectController extends Base
             $mobileDevice = ($mobileDetectorService->isMobile($userAgent) || $mobileDetectorService->isTablet($userAgent));
             $isOldBrowser = $this->getIsOldBrowser($userAgent);
 
-            return $this->render("PumukitCmarWebTVBundle:MultimediaObject:opencast.html.twig",
+            return $this->render('PumukitCmarWebTVBundle:MultimediaObject:opencast.html.twig',
                                  array(
-                                       "multimediaObject" => $multimediaObject,
-                                       "is_old_browser" => $isOldBrowser,
-                                       "mobile_device" => $mobileDevice,
-                                       "magic_url" => ("pumukit_webtv_multimediaobject_magicindex" === $request->attributes->get('_route')) ? true : null
+                                       'multimediaObject' => $multimediaObject,
+                                       'is_old_browser' => $isOldBrowser,
+                                       'mobile_device' => $mobileDevice,
+                                       'magic_url' => ('pumukit_webtv_multimediaobject_magicindex' === $request->attributes->get('_route')) ? true : null,
                                        )
                                  );
         }
     }
 
-   /**
-    * @Route("/iframe/{id}", name="pumukit_webtv_multimediaobject_iframe")
-    * @Template()
-    */
+    /**
+     * @Route("/iframe/{id}", name="pumukit_webtv_multimediaobject_iframe")
+     * @Template()
+     */
     public function iframeAction(MultimediaObject $multimediaObject, Request $request)
     {
         $response = $this->testBroadcast($multimediaObject, $request);
-        if($response instanceof Response) {
+        if ($response instanceof Response) {
             return $response;
         }
 
@@ -54,12 +54,12 @@ class MultimediaObjectController extends Base
             $isOldBrowser = $this->getIsOldBrowser($userAgent);
             $track = $multimediaObject->getTrackWithTag('sbs');
 
-            return $this->render("PumukitCmarWebTVBundle:MultimediaObject:opencastiframe.html.twig",
+            return $this->render('PumukitCmarWebTVBundle:MultimediaObject:opencastiframe.html.twig',
                                  array(
-                                       "multimediaObject" => $multimediaObject,
-                                       "track" => $track,
-                                       "is_old_browser" => $isOldBrowser,
-                                       "mobile_device" => $mobileDevice
+                                       'multimediaObject' => $multimediaObject,
+                                       'track' => $track,
+                                       'is_old_browser' => $isOldBrowser,
+                                       'mobile_device' => $mobileDevice,
                                        )
                                  );
         }
@@ -68,16 +68,16 @@ class MultimediaObjectController extends Base
           $multimediaObject->getTrackById($request->query->get('track_id')) :
           $multimediaObject->getFilteredTrackWithTags(array('display'));
 
-        if (!$track)
+        if (!$track) {
             throw $this->createNotFoundException();
-
+        }
         $this->incNumView($multimediaObject, $track);
         $this->dispatch($multimediaObject, $track);
 
         return array('autostart' => $request->query->get('autostart', 'true'),
                      'intro' => $this->getIntro($request->query->get('intro')),
                      'multimediaObject' => $multimediaObject,
-                     'track' => $track);
+                     'track' => $track, );
     }
 
     private function getIsOldBrowser($userAgent)
@@ -85,7 +85,7 @@ class MultimediaObjectController extends Base
         $isOldBrowser = false;
         $webExplorer = $this->getWebExplorer($userAgent);
         $version = $this->getVersion($userAgent, $webExplorer);
-        if (($webExplorer == 'IE') || ($webExplorer == 'MSIE') || $webExplorer == 'Firefox' || $webExplorer == 'Opera' || ($webExplorer == 'Safari' && $version<4)){
+        if (('IE' == $webExplorer) || ('MSIE' == $webExplorer) || 'Firefox' == $webExplorer || 'Opera' == $webExplorer || ('Safari' == $webExplorer && $version < 4)) {
             $isOldBrowser = true;
         }
 
@@ -94,11 +94,21 @@ class MultimediaObjectController extends Base
 
     private function getWebExplorer($userAgent)
     {
-        if (preg_match('/MSIE/i', $userAgent))         $webExplorer = "MSIE";
-        if (preg_match('/Opera/i', $userAgent))        $webExplorer = 'Opera';
-        if (preg_match('/Firefox/i', $userAgent))      $webExplorer = 'Firefox';
-        if (preg_match('/Safari/i', $userAgent))       $webExplorer = 'Safari';
-        if (preg_match('/Chrome/i', $userAgent))       $webExplorer = 'Chrome';
+        if (preg_match('/MSIE/i', $userAgent)) {
+            $webExplorer = 'MSIE';
+        }
+        if (preg_match('/Opera/i', $userAgent)) {
+            $webExplorer = 'Opera';
+        }
+        if (preg_match('/Firefox/i', $userAgent)) {
+            $webExplorer = 'Firefox';
+        }
+        if (preg_match('/Safari/i', $userAgent)) {
+            $webExplorer = 'Safari';
+        }
+        if (preg_match('/Chrome/i', $userAgent)) {
+            $webExplorer = 'Chrome';
+        }
 
         return $webExplorer;
     }
@@ -107,37 +117,38 @@ class MultimediaObjectController extends Base
     {
         $version = null;
 
-        if($webExplorer!=='Opera' && preg_match("#(".strtolower($webExplorer).")[/ ]?([0-9.]*)#", $userAgent, $match))
+        if ('Opera' !== $webExplorer && preg_match('#('.strtolower($webExplorer).')[/ ]?([0-9.]*)#', $userAgent, $match)) {
             $version = floor($match[2]);
-        if($webExplorer=='Opera' || $webExplorer=='Safari' && preg_match("#(version)[/ ]?([0-9.]*)#", $userAgent, $match))
+        }
+        if ('Opera' == $webExplorer || 'Safari' == $webExplorer && preg_match('#(version)[/ ]?([0-9.]*)#', $userAgent, $match)) {
             $version = floor($match[2]);
+        }
 
         return $version;
     }
 
-
-   public function testBroadcast(MultimediaObject $multimediaObject, Request $request)
-   {
-       if (!$multimediaObject->isPublicEmbeddedBroadcast()) {
-          if ((!$this->container->hasParameter('pumukit_cmar_web_tv.cas_url')) &&
+    public function testBroadcast(MultimediaObject $multimediaObject, Request $request)
+    {
+        if (!$multimediaObject->isPublicEmbeddedBroadcast()) {
+            if ((!$this->container->hasParameter('pumukit_cmar_web_tv.cas_url')) &&
               (!$this->container->hasParameter('pumukit_cmar_web_tv.cas_port')) &&
               (!$this->container->hasParameter('pumukit_cmar_web_tv.cas_uri')) &&
               (!$this->container->hasParameter('pumukit_cmar_web_tv.cas_allowed_ip_clients'))) {
-              throw $this->createNotFoundException('PumukitCmarWebTVBundle not configured.');
-          }
+                throw $this->createNotFoundException('PumukitCmarWebTVBundle not configured.');
+            }
 
-          $casService = $this->get('pumukit_cmar_web_tv.casservice');
-          $casService->forceAuthentication();
+            $casService = $this->get('pumukit_cmar_web_tv.casservice');
+            $casService->forceAuthentication();
 
-          if(!in_array($casService->getUser(), array($broadcast->getName(), "tv", "prueba", "adminmh", "admin", "sistemas.uvigo"))) {
-              return new Response($this->renderView("PumukitWebTVBundle:Index:401unauthorized.html.twig", array()), 401);
-          }
-      }
+            if (!in_array($casService->getUser(), array($broadcast->getName(), 'tv', 'prueba', 'adminmh', 'admin', 'sistemas.uvigo'))) {
+                return new Response($this->renderView('PumukitWebTVBundle:Index:401unauthorized.html.twig', array()), 401);
+            }
+        }
 
-      return true;
+        return true;
     }
 
-   /**
+    /**
      * @Route("/mmobj/iframe/{id}", name="pumukit_webtv_multimediaobject_mmobjiframe")
      * @Template()
      */
