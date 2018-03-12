@@ -96,7 +96,7 @@ class CmarWebTVExtension extends \Twig_Extension
 
         $url = str_replace('/watch.html', $url_player, $url);
 
-        if ($isHTML5) {
+        if (true) {
             $url = str_replace('/engage/ui/', '/paellaengage/ui/', $url);
         }
 
