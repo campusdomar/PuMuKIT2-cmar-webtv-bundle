@@ -19,9 +19,9 @@ class IndexController extends Base
         $event = $eventRepo->findOneByHoursEvent(3);
 
         $this->get('pumukit_web_tv.breadcrumbs')->reset();
+
         return array('event' => $event);
     }
-
 
     /**
      * @Template("PumukitWebTVBundle:Index:mostviewed.html.twig")
@@ -36,10 +36,12 @@ class IndexController extends Base
             $dm = $this->get('doctrine_mongodb.odm.document_manager');
             $repo = $dm->getRepository('PumukitSchemaBundle:MultimediaObject');
 
-            $multimediaObjectsSortedByNumview = $repo->findBy(array('_id' => array('$in' => $ids)));
+            if ($ids) {
+                $multimediaObjectsSortedByNumview = $repo->findBy(array('_id' => array('$in' => $ids)));
 
-            if ($multimediaObjectsSortedByNumview) {
-                return array('multimediaObjectsSortedByNumview' => $multimediaObjectsSortedByNumview);
+                if ($multimediaObjectsSortedByNumview) {
+                    return array('multimediaObjectsSortedByNumview' => $multimediaObjectsSortedByNumview);
+                }
             }
         }
 
