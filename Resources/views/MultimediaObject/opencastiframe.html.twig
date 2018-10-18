@@ -8,7 +8,7 @@
     <source src="{{ track.url }}" type="video/mp4"/>
    </video>
   {% else %}{# TODO maybe throw 404 #}
-  <iframe src="{{ iframeurl(multimediaObject, not is_old_browser, true) }}"
+  <iframe src="{{ cmariframeurl(multimediaObject, not is_old_browser, true) }}"
           id="mh_iframe"
           style="border:0px #FFFFFF none; width:100%; height:950px;" 
           name="Opencast Matterhorn - Media Player" 
@@ -18,7 +18,7 @@
   </iframe>
   {% endif %}
 {% else %}
-<iframe src="{{ iframeurl(multimediaObject, not is_old_browser, true) }}"
+<iframe src="{{ cmariframeurl(multimediaObject, not is_old_browser, true) }}"
         id="mh_iframe"
         style="border:0px #FFFFFF none; width:100%; height:950px;" 
         name="Opencast Matterhorn - Media Player" 

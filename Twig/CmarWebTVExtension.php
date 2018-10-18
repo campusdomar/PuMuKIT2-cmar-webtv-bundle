@@ -51,7 +51,7 @@ class CmarWebTVExtension extends \Twig_Extension
     function getFunctions()
     {
       return array(
-                   new \Twig_SimpleFunction('iframeurl', array($this, 'getIframeUrl')),
+                   new \Twig_SimpleFunction('cmariframeurl', array($this, 'getIframeUrl')),
                    new \Twig_SimpleFunction('precinct_complete_name', array($this, 'getPrecinctCompleteName')),
                    );
     }
