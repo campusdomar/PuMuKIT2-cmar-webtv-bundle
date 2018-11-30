@@ -68,7 +68,7 @@
            <div id="material" class="file matterhorn">
              <a href="{{ url_mmobj }}">{% spaceless %}
                {% trans %}Video{% endtrans %}
-               {% if (mm.getEmbeddedBroadcast().getId() != public_broadcast()) %}
+               {% if (mm.getEmbeddedBroadcast().getType() != public_broadcast()) %}
                {% trans %}private{% endtrans %}
                {% endif %}
              {% endspaceless %}</a>
@@ -96,7 +96,7 @@
                      {% else %}
                      {% trans %}Video{% endtrans %}
                      {% endif %}
-                     {% if (mm.getEmbeddedBroadcast().getId() != public_broadcast()) %}
+                     {% if (mm.getEmbeddedBroadcast().getType() != public_broadcast()) %}
                      {% trans %}private{% endtrans %}
                      {% endif %}
                      {% endspaceless %}</a>

@@ -1,12 +1,36 @@
-CmarTV bundles
-==============
+TV Campus do Mar Bundles
+========================
 
-| Name                                               | Production    | Staging
-| ---------------------------------------------------| ------------- | -------------
-| pumukit/pumukit2                                   |         2.3.0 |       2.3.x
-| campusdomar/pmk2-cmar-live-bundle                  |         1.0.0 |       1.0.x
-| campusdomar/pmk2-cmar-sonar-bundle                 |         1.0.0 |       1.0.x
-| campusdomar/pmk2-cmar-webtv-bundle                 |         1.1.0 |       1.1.x
-| teltek/pmk2-cmar-private-live-bundle               |         1.0.0 |       1.0.x
-| teltek/pmk2-stats-ui-bundle                        |         1.0.5 |       1.0.x
-| teltek/pmk2-youtube-bundle                         |         1.1.1 |       1.1.x
+## Install PuMuKIT2
+
+| Name                                                   | Production          | Staging
+| -------------------------------------------------------| ------------------- | -----------
+| pumukit/pumukit2                                       |               2.4.* |       2.4.x
+
+
+## Enable PuMuKIT2 Bundles
+
+| Name                                                   | Production          | Staging
+| -------------------------------------------------------| ------------------- | -----------
+| Pumukit/OpencastBundle/PumukitOpencastBundle           |               2.4.* |       2.4.x
+| Pumukit/LDAPBundle/PumukitLDAPBundle                   |               2.4.* |       2.4.x
+| Pumukit/NotificationBundle/PumukitNotificationBundle   |               2.4.* |       2.4.x
+| Pumukit/PodcastBundle/PumukitPodcastBundle             |               2.4.* |       2.4.x
+
+
+## Install External Bundles
+
+| Name                                                   | Production          | Staging
+| -------------------------------------------------------| ------------------- | -----------
+| teltek/pmk2-youtube-bundle                             |               1.1.* |       1.1.x
+| teltek/pmk2-stats-ui-bundle                            |               1.0.* |       1.0.x
+| teltek/pmk2-jwplayer7-live-bundle                      |               1.3.* |       1.3.x
+| teltek/pmk2-lms-bundle                                 |               1.1.* |       1.1.x
+
+## Install TV Campus do Mar Bundles
+
+| Name                                                   | Production          | Staging
+| -------------------------------------------------------| ------------------- | -----------
+| campusdomar/pmk2-cmar-sonar-bundle                     |               1.0.* |       1.0.x
+| campusdomar/pmk2-cmar-webtv-bundle                     |               2.0.* |       2.0.x
+| teltek/pmk2-cmar-private-live-bundle                   |               1.0.* |       1.0.x
