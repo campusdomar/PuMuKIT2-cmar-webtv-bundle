@@ -622,3 +622,30 @@ div#footer-content {
         font-weight: bold;
     color: #000;
 }
+
+/* Live stats */
+.text-center {
+    text-align: center;
+}
+
+.panel-heading {
+    width: 75%;
+    margin: 0 auto;
+    background-color: #257E94;
+    font-weight: bold;
+    color: white;
+    padding: 2px;
+    border: 1px solid #257E94;
+}
+
+.table-striped {
+    text-align: center;
+    padding:2px;
+    margin:0 auto;
+}
+
+.table-striped tr td {
+    min-width: 357px;
+    border-bottom: 1px solid grey;
+    padding: 2px;
+}
