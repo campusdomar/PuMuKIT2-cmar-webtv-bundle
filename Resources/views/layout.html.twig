@@ -22,7 +22,9 @@
     <link href="{{ asset('bundles/pumukitcmarwebtv/css/pumukittv.css') }}" type="text/css" rel="stylesheet" media="screen"/>
     {% endblock %}
     {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/pumukitcmarwebtv/js/prototype.js') }}"></script>
+      {% if app.request.get('_route') != 'pumukit_live' %}
+        <script type="text/javascript" src="{{ asset('bundles/pumukitcmarwebtv/js/prototype.js') }}"></script>
+      {% endif %}
     {% endblock %}
     {% block favicon %}
     <link rel="icon" type="image/x-icon" href="{{ asset('bundles/pumukitcmarwebtv/images/favicon.ico') }}" />
