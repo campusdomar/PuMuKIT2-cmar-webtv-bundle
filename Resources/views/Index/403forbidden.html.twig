@@ -1,0 +1,19 @@
+{% extends 'PumukitWebTVBundle::layout.html.twig' %}
+{% block body_base %}
+    <h1 class="widget widget_forbidden_error">
+        {% trans %}Private Video{% endtrans %}
+    </h1>
+    <div class="grid_10 mm_player">
+        <div class="date"></div>
+        <h2 class="widget_forbidden_error_message">
+            {% trans %}This video is private with restricted access{% endtrans %}.
+        </h2>
+    </div>
+    <div class="grid_5">
+        {% if show_forceauth %}
+            <h3 class="widget_forbidden_message">
+                {% trans %}Log in with a valid user is required to watch it{% endtrans %}.
+            </h3>
+        {% endif %}
+    </div>
+{% endblock %}
