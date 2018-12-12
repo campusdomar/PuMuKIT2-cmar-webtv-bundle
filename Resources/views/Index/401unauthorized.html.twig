@@ -1,6 +1,17 @@
 {% extends 'PumukitWebTVBundle::layout.html.twig' %}
 {% block stylesheets %}
    <link href="{{ asset('bundles/pumukitwebtv/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" media="screen"/>
+    <style>
+        .widget.widget_unauthorized_error {
+            text-align: center;
+            border-bottom: 2px solid #9C8B83;
+        }
+        
+        .widget_unauthorized_error_message, .widget_unauthorized_message {
+            text-align: center;
+        }
+
+    </style>
 {% endblock %}
 
 {% block javascripts %}
