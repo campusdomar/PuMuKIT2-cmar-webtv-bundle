@@ -5,17 +5,17 @@ TV Campus do Mar Bundles
 
 | Name                                                   | Production          | Staging
 | -------------------------------------------------------| ------------------- | -----------
-| pumukit/pumukit2                                       |               2.4.* |       2.4.x
+| pumukit/pumukit2                                       |               2.5.* |       2.5.x
 
 
 ## Enable PuMuKIT2 Bundles
 
 | Name                                                   | Production          | Staging
 | -------------------------------------------------------| ------------------- | -----------
-| Pumukit/OpencastBundle/PumukitOpencastBundle           |               2.4.* |       2.4.x
-| Pumukit/LDAPBundle/PumukitLDAPBundle                   |               2.4.* |       2.4.x
-| Pumukit/NotificationBundle/PumukitNotificationBundle   |               2.4.* |       2.4.x
-| Pumukit/PodcastBundle/PumukitPodcastBundle             |               2.4.* |       2.4.x
+| Pumukit/OpencastBundle/PumukitOpencastBundle           |               2.5.* |       2.5.x
+| Pumukit/LDAPBundle/PumukitLDAPBundle                   |               2.5.* |       2.5.x
+| Pumukit/NotificationBundle/PumukitNotificationBundle   |               2.5.* |       2.5.x
+| Pumukit/PodcastBundle/PumukitPodcastBundle             |               2.5.* |       2.5.x
 
 
 ## Install External Bundles
