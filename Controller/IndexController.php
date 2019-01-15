@@ -18,9 +18,10 @@ class IndexController extends Base
         $eventRepo = $dm->getRepository('PumukitLiveBundle:Event');
         $event = $eventRepo->findOneByHoursEvent(3);
 
+        $lives = $dm->getRepository('PumukitLiveBundle:Live')->findAll();
         $this->get('pumukit_web_tv.breadcrumbs')->reset();
 
-        return array('event' => $event);
+        return array('event' => $event, 'lives' => $lives);
     }
 
     /**
