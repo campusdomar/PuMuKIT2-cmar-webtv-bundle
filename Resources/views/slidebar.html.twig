@@ -15,11 +15,13 @@
                     <a href="{{ path('pumukit_cmar_web_tv_library_congresses') }}">{% trans %}Congresses{% endtrans %}</a>
                 </li>
                 <!-- Live -->
-                {% for live in lives if live.getSourceName() in ['cmar'] %}
-                    <li>
-                        <a href="{{ path('pumukit_live_id', {'id': live.id }) }}">{% trans %}Live{% endtrans %}</a>
-                    </li>
-                {% endfor %}
+                {% if lives is defined %}
+                    {% for live in lives if live.getSourceName() in ['cmar'] %}
+                        <li>
+                            <a href="{{ path('pumukit_live_id', {'id': live.id }) }}">{% trans %}Live{% endtrans %}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
                 <!-- Press area -->
                 <li>
                     <a href="{{ path('pumukit_cmar_web_tv_library_pressarea') }}">{% trans %}Press area{% endtrans %}</a>
