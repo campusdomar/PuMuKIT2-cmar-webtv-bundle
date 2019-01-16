@@ -42,7 +42,7 @@
             <div class="pumukit_content">
                 {% block body_without_bar %}
                     <div class="grid_3">
-                        {% include 'PumukitCmarWebTVBundle::slidebar.html.twig' %}
+                        {{  render(controller("PumukitWebTVBundle:Utils:menu")) }}
                     </div>
                     <div class="grid_12">
                         {% block body %}{% endblock %}
