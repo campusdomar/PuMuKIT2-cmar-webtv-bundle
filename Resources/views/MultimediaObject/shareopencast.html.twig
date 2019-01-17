@@ -6,12 +6,12 @@
     <a href="http://twitter.com/home?status={{ multimediaObject.getTitle()|raw|url_encode(true) }}{{ url('pumukit_webtv_multimediaobject_index', {'id': multimediaObject.id}) }}">
       <img style="width:20px" src="{{ asset('bundles/pumukitcmarwebtv/images/iconos/twitter.png') }}" title="{% trans %}Share on twitter{% endtrans %}" />     
     </a>
-    <a href="http://del.icio.us/post?url={{ url('pumukit_webtv_multimediaobject_index', {'id': multimediaObject.id}) }}">
+    {#<a href="http://del.icio.us/post?url={{ url('pumukit_webtv_multimediaobject_index', {'id': multimediaObject.id}) }}">
       <img style="width: 20px;" src="{{ asset('bundles/pumukitcmarwebtv/images/iconos/delicious.png') }}" title="{% trans %}Share on delicious{% endtrans %}">
     </a>
     <a href="http://www.google.com/reader/link?url={{ url('pumukit_webtv_multimediaobject_index', {'id': multimediaObject.id}) }}">
       <img style="width: 20px;" src="{{ asset('bundles/pumukitcmarwebtv/images/iconos/google.png') }}"  title="{% trans %}Share on google buz{% endtrans %}">
-    </a>
+    </a>#}
   </div>
   
   <div class="share_input" style="overflow:hidden;">
