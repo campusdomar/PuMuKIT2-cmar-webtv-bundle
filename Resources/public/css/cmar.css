@@ -1,0 +1,23 @@
+/* Fixing css for cmar header ( after load bootstrap ) */
+
+div.cab_pan {
+    margin-top: -5px !important;
+}
+
+#idiomas {
+    margin-top: -1px;
+}
+
+/* Fixing css for cmar live password ( after load bootstrap ) */
+
+.widget_password {
+    font-size: 2em;
+}
+
+.grid_10.mm_player {
+    width:100% !important;
+
+}
+.container_15 .grid_5 {
+    width:100% !important;
+}

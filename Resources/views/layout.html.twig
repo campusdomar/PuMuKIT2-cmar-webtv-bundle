@@ -20,10 +20,12 @@
         <link href="{{ path('pumukit_cmar_web_tv_series_css') }}" rel="stylesheet">
         <link href="{{ path('pumukit_cmar_web_tv_style_css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/pumukitcmarwebtv/css/pumukittv.css') }}" type="text/css" rel="stylesheet" media="screen"/>
-
         {% if app.request.get('_route') == 'pumukit_live_id' %}
-            <link href="{{ asset('bundles/pumukitwebtv/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" media="screen"/>
+            <link href="{{ asset('bundles/pumukitwebtv/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" media="screen"/><link href="{{ asset('bundles/pumukitcmarwebtv/css/pumukittv.css') }}" type="text/css" rel="stylesheet" media="screen"/>
+            <link href="{{ asset('bundles/pumukitcmarwebtv/css/cmar.css') }}" type="text/css" rel="stylesheet" media="screen"/>
         {% endif %}
+
+
     {% endblock %}
     {% block javascripts %}
         {% if app.request.get('_route') != 'pumukit_live_id' %}
@@ -47,6 +49,9 @@
                 {% render(controller('PumukitWebTVBundle:Widget:breadcrumbs')) %}
             </div>
             <div class="pumukit_content">
+                {% if app.request.get('_route') == 'pumukit_live_id' %}
+                    <div class="row">
+                {% endif %}
                 {% block body_without_bar %}
                     <div class="grid_3">
                         {{  render(controller("PumukitWebTVBundle:Utils:menu")) }}
@@ -55,6 +60,9 @@
                         {% block body %}{% endblock %}
                     </div>
                 {% endblock %}
+                {% if app.request.get('_route') == 'pumukit_live_id' %}
+                    </div>
+                {% endif %}
             </div>
             {% include app.session.get('breadcrumbs/title') == 'Sonar' ? 'PumukitCmarSonarBundle::footer.html.twig' : 'PumukitCmarWebTVBundle::footer.html.twig' %}
         </div>
