@@ -35,4 +35,3 @@ TV Campus do Mar Bundles
 | -------------------------------------------------------| ------------------- | -----------
 | campusdomar/pmk2-cmar-sonar-bundle                     |               1.0.* |       1.0.x
 | campusdomar/pmk2-cmar-webtv-bundle                     |               2.0.* |       2.0.x
-| teltek/pmk2-cmar-private-live-bundle                   |               1.1.* |       1.1.x
