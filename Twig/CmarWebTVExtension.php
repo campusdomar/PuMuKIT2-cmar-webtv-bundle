@@ -130,7 +130,7 @@ class CmarWebTVExtension extends \Twig_Extension
      * Get precinct complete name.
      *
      * @param Tag|EmbeddedTag $precinctTag
-     * @param string $locale
+     * @param string          $locale
      *
      * @return string
      */

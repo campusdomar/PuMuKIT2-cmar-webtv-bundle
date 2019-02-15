@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Pumukit\SchemaBundle\Document\MultimediaObject;
-use Pumukit\SchemaBundle\Document\Series;
-use Pumukit\SchemaBundle\Document\Broadcast;
 
 /**
  * @Route("/library")
@@ -38,9 +36,8 @@ class MediaLibraryController extends Controller
      */
     public function mainConferencesAction(Request $request)
     {
-        return $this->action(null, self::MAIN_CONFERENCES, "pumukit_cmar_web_tv_library_mainconferences", $request, array('record_date' => -1), false);
+        return $this->action(null, self::MAIN_CONFERENCES, 'pumukit_cmar_web_tv_library_mainconferences', $request, array('record_date' => -1), false);
     }
-
 
     /**
      * @Route("/pc")
@@ -49,9 +46,8 @@ class MediaLibraryController extends Controller
      */
     public function promotionalAction(Request $request)
     {
-        return $this->action(null, self::PROMOTIONAL, "pumukit_cmar_web_tv_library_promotional", $request);
+        return $this->action(null, self::PROMOTIONAL, 'pumukit_cmar_web_tv_library_promotional', $request);
     }
-
 
     /**
      * @Route("/ap")
@@ -60,9 +56,8 @@ class MediaLibraryController extends Controller
      */
     public function pressAreaAction(Request $request)
     {
-        return $this->action(null, self::PRESS_AREA, "pumukit_cmar_web_tv_library_pressarea", $request);
+        return $this->action(null, self::PRESS_AREA, 'pumukit_cmar_web_tv_library_pressarea', $request);
     }
-
 
     /**
      * @Route("/ps")
@@ -71,7 +66,7 @@ class MediaLibraryController extends Controller
      */
     public function projectSupportAction(Request $request)
     {
-        return $this->action(null, self::PROJECT_SUPPORT, "pumukit_cmar_web_tv_library_projectsupport", $request);
+        return $this->action(null, self::PROJECT_SUPPORT, 'pumukit_cmar_web_tv_library_projectsupport', $request);
     }
 
     /**
@@ -81,7 +76,7 @@ class MediaLibraryController extends Controller
      */
     public function congressesAction(Request $request)
     {
-        return $this->action(null, self::CONGRESSES, "pumukit_cmar_web_tv_library_congresses", $request);
+        return $this->action(null, self::CONGRESSES, 'pumukit_cmar_web_tv_library_congresses', $request);
     }
 
     /**
@@ -91,7 +86,7 @@ class MediaLibraryController extends Controller
      */
     public function lecturesAction(Request $request)
     {
-        return $this->actionOpencast("Recorded lectures", self::LECTURES, "pumukit_cmar_web_tv_library_lectures");
+        return $this->actionOpencast('Recorded lectures', self::LECTURES, 'pumukit_cmar_web_tv_library_lectures');
     }
 
     /**
@@ -100,8 +95,8 @@ class MediaLibraryController extends Controller
      */
     public function allAction(Request $request)
     {
-        $title = $this->get('translator')->trans("All videos");
-        $this->get('pumukit_web_tv.breadcrumbs')->addList($title, "pumukit_cmar_web_tv_library_all");
+        $title = $this->get('translator')->trans('All videos');
+        $this->get('pumukit_web_tv.breadcrumbs')->addList($title, 'pumukit_cmar_web_tv_library_all');
 
         $seriesRepo = $this->get('doctrine_mongodb.odm.document_manager')->getRepository('PumukitSchemaBundle:Series');
         $series = $seriesRepo->findBy(array(), array('public_date' => -1));
@@ -111,22 +106,22 @@ class MediaLibraryController extends Controller
         return array('title' => $title, 'series' => $series, 'mmobj_count' => $mmobjCount);
     }
 
-
-    private function action($title, $tagName, $routeName, Request $request, array $sort=array('public_date' => -1), $showSeries=true)
+    private function action($title, $tagName, $routeName, Request $request, array $sort = array('public_date' => -1), $showSeries = true)
     {
         $dm = $this->get('doctrine_mongodb.odm.document_manager');
 
         $tag = $dm->getRepository('PumukitSchemaBundle:Tag')->findOneByCod($tagName);
         if (!$tag) {
-          throw $this->createNotFoundException('The tag with code "'.$tagName.'" does not exist');
+            throw $this->createNotFoundException('The tag with code "'.$tagName.'" does not exist');
         }
-    
-        $title = $title != null ? $title : $tag->getTitle();
-        
+
+        $title = null != $title ? $title : $tag->getTitle();
+
         $this->get('pumukit_web_tv.breadcrumbs')->addList($title, $routeName);
 
         if (!$showSeries) {
             $multimediaObjects = $dm->getRepository('PumukitSchemaBundle:MultimediaObject')->findByTagCod($tag, $sort);
+
             return array('title' => $title, 'multimedia_objects' => $multimediaObjects, 'tag_cod' => $tagName);
         }
 
@@ -137,7 +132,7 @@ class MediaLibraryController extends Controller
         return array('title' => $title, 'series' => $series, 'tag_cod' => $tagName, 'mmobj_count' => $mmobjCount);
     }
 
-    private function actionOpencast($title, $tagName, $routeName, array $sort=array('public_date' => -1))
+    private function actionOpencast($title, $tagName, $routeName, array $sort = array('public_date' => -1))
     {
         $dm = $this->get('doctrine_mongodb.odm.document_manager');
 
@@ -146,12 +141,12 @@ class MediaLibraryController extends Controller
             throw $this->createNotFoundException('The tag with code "'.$tagName.'" does not exist');
         }
 
-        $title = $title != null ? $title : $tag->getTitle();
+        $title = null != $title ? $title : $tag->getTitle();
 
         $this->get('pumukit_web_tv.breadcrumbs')->addList($title, $routeName, array(), true);
 
         // NOTE: Review if the number of SeriesType increases
-        $allSeriesType = $dm->getRepository('PumukitSchemaBundle:SeriesType')->findBy(array(), array("cod" => 1));
+        $allSeriesType = $dm->getRepository('PumukitSchemaBundle:SeriesType')->findBy(array(), array('cod' => 1));
         $subseries = array();
         foreach ($allSeriesType as $seriesType) {
             $series = $dm->getRepository('PumukitSchemaBundle:Series')->findWithTagAndSeriesType($tag, $seriesType, $sort);
@@ -159,10 +154,9 @@ class MediaLibraryController extends Controller
         }
 
         $mmobjCount = $this->countMmobjInSeries();
-        
+
         return array('title' => $title, 'subseries' => $subseries, 'tag_cod' => $tagName, 'mmobj_count' => $mmobjCount);
     }
-
 
     private function countMmobjInSeries()
     {
@@ -179,12 +173,12 @@ class MediaLibraryController extends Controller
             array('$match' => $criteria),
             array('$group' => array('_id' => '$series', 'count' => array('$sum' => 1))),
         );
-        
+
         $aggregation = $multimediaObjectsColl->aggregate($pipeline);
 
         $mmobjCount = array();
-        foreach($aggregation as $a) {
-            $mmobjCount[(string)$a['_id']] = $a['count'];
+        foreach ($aggregation as $a) {
+            $mmobjCount[(string) $a['_id']] = $a['count'];
         }
 
         return $mmobjCount;

@@ -15,7 +15,7 @@ class WebTVInitTagsCommand extends ContainerAwareCommand
     private $dm = null;
     private $tagsRepo = null;
 
-    private $tagsPath = "../Resources/data/tags/";
+    private $tagsPath = '../Resources/data/tags/';
 
     protected function configure()
     {
@@ -40,7 +40,9 @@ EOT
 
         if ($input->getOption('force')) {
             $errorExecuting = $this->executeTags($input, $output);
-            if (-1 === $errorExecuting) return -1;
+            if (-1 === $errorExecuting) {
+                return -1;
+            }
         } else {
             $output->writeln('<error>ATTENTION:</error> This operation should not be executed in a production environment.');
             $output->writeln('');
@@ -54,23 +56,23 @@ EOT
 
     protected function executeTags(InputInterface $input, OutputInterface $output)
     {
-        $this->tagsRepo = $this->dm->getRepository("PumukitSchemaBundle:Tag");
+        $this->tagsRepo = $this->dm->getRepository('PumukitSchemaBundle:Tag');
 
         $finder = new Finder();
         $finder->files()->in(__DIR__.'/'.$this->tagsPath);
         $file = $input->getArgument('file');
-        if ((0 == strcmp($file, "")) && (!$finder)) {
+        if ((0 == strcmp($file, '')) && (!$finder)) {
             $output->writeln("<error>Tags: There's no data to initialize</error>");
-        
+
             return -1;
         }
-        $publishingDecisionTag = $this->tagsRepo->findOneByCod("PUBDECISIONS");
+        $publishingDecisionTag = $this->tagsRepo->findOneByCod('PUBDECISIONS');
         if (null == $publishingDecisionTag) {
-            throw new \Exception("Trying to add children tags to the not created Publishing Decision Tag. Please init pumukit tags");
+            throw new \Exception('Trying to add children tags to the not created Publishing Decision Tag. Please init pumukit tags');
         }
-        $rootTag = $this->tagsRepo->findOneByCod("ROOT");
+        $rootTag = $this->tagsRepo->findOneByCod('ROOT');
         if (null == $rootTag) {
-            throw new \Exception("Trying to add children tags to the not created ROOT Tag. Please init pumukit tags");
+            throw new \Exception('Trying to add children tags to the not created ROOT Tag. Please init pumukit tags');
         }
         foreach ($finder as $tagFile) {
             if (0 < strpos(pathinfo($tagFile, PATHINFO_EXTENSION), '~')) {
@@ -90,7 +92,7 @@ EOT
     protected function createFromFile($file, $parentTag, OutputInterface $output)
     {
         if (!file_exists($file)) {
-            $output->writeln("<error>Tag: Error stating ".$file."</error>");
+            $output->writeln('<error>Tag: Error stating '.$file.'</error>');
 
             return -1;
         }
@@ -98,12 +100,12 @@ EOT
         $idCodMapping = array();
 
         $row = 1;
-        if (($file = fopen($file, "r")) !== false) {
-            while (($currentRow = fgetcsv($file, 300, ";")) !== false) {
+        if (false !== ($file = fopen($file, 'r'))) {
+            while (false !== ($currentRow = fgetcsv($file, 300, ';'))) {
                 $number = count($currentRow);
-                if ($number == 6 || $number == 8){
+                if (6 == $number || 8 == $number) {
                     //Check header rows
-                    if (trim($currentRow[0]) == "id") {
+                    if ('id' == trim($currentRow[0])) {
                         continue;
                     }
 
@@ -114,37 +116,34 @@ EOT
                     try {
                         $tag = $this->createTagFromCsvArray($currentRow, $parent);
                         $idCodMapping[$currentRow[0]] = $tag;
-                        $output->writeln("Tag persisted - new id: ".$tag->getId()." cod: ".$tag->getCod());
+                        $output->writeln('Tag persisted - new id: '.$tag->getId().' cod: '.$tag->getCod());
                     } catch (\Exception $e) {
-                        $output->writeln("<error>Tag: ".$e->getMessage()."</error>");
+                        $output->writeln('<error>Tag: '.$e->getMessage().'</error>');
                     }
                 } else {
-                    $output->writeln("Tag: Last valid row = ...". ($row - 1));
+                    $output->writeln('Tag: Last valid row = ...'.($row - 1));
                     $output->writeln("Error: line $row has $number elements");
                 }
 
-                if ($row % 100 == 0) {
-                    echo "Row ".$row."\n";
+                if (0 == $row % 100) {
+                    echo 'Row '.$row."\n";
                 }
                 $previous_content = $currentRow;
-                $row++;
+                ++$row;
             }
             fclose($file);
             $this->dm->flush();
         } else {
-            $output->writeln("<error>Error opening ".$file."</error>");
+            $output->writeln('<error>Error opening '.$file.'</error>');
 
             return -1;
         }
     }
 
-    /**
-     *
-     */
     private function createTagFromCsvArray($csv_array, $tag_parent = null)
     {
         if ($tag = $this->tagsRepo->findOneByCod($csv_array[1])) {
-            throw new \LengthException("Nothing done - Tag retrieved from DB id: ".$tag->getId()." cod: ".$tag->getCod());
+            throw new \LengthException('Nothing done - Tag retrieved from DB id: '.$tag->getId().' cod: '.$tag->getCod());
         }
 
         $tag = new Tag();
