@@ -25,8 +25,8 @@ TV Campus do Mar Bundles
 | teltek/pmk2-youtube-bundle                             |               1.1.* |       1.1.x
 | teltek/pmk2-stats-ui-bundle                            |               1.0.* |       1.0.x
 | teltek/pmk2-jwplayer7-live-bundle                      |               1.3.* |       1.3.x
-| teltek/pmk2-lms-bundle                                 |               1.1.* |       1.1.x
-| teltek/pmk2-paella-player-bundle                       |               1.4.* |       1.4.x
+| teltek/pmk2-lms-bundle                                 |               1.2.* |       1.1.x
+| teltek/pmk2-paella-player-bundle                       |               1.5.* |       1.4.x
 | teltek/pmk2-soft-video-editor-bundle                   |               1.0.* |       1.0.x
 
 ## Install TV Campus do Mar Bundles
